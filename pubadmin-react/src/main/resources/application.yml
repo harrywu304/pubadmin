@@ -1,0 +1,7 @@
+server:
+    port: 8080
+    context-path: #/sprbtmybatis/
+
+logging:
+    level:
+        org.pub: DEBUG
