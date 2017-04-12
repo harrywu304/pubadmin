@@ -112,7 +112,7 @@ var Reports = function (_React$Component) {
 			console.log("e.target.id:" + e.target.id);
 
 			var $this = this;
-			$.get("/pubadmin2/testdata/users.json", function (data, status) {
+			$.get("/pubadmin-react/testdata/users.json", function (data, status) {
 				console.log("data:" + data);
 				console.log("status:" + status);
 				if ("success" === status) {

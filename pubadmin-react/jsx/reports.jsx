@@ -48,7 +48,7 @@ class Reports extends React.Component {
     	console.log("e.target.id:"+e.target.id);
     	
     	var $this = this;
-    	$.get("/pubadmin2/testdata/users.json",function(data,status){
+    	$.get("/pubadmin-react/testdata/users.json",function(data,status){
     		console.log("data:"+data);
     		console.log("status:"+status);
     		if("success" === status){
@@ -64,7 +64,7 @@ class Reports extends React.Component {
 			{this.renderQueryForm()}
 			<DataList datatitle={this.state.datatitle} heads={this.state.heads} rows={this.state.rows} headkeyref={this.state.headkeyref}/>
 			{/*<DataList datatitle={this.state.datatitle} heads={this.state.heads} rows={this.state.rows} renderDataRow={this.renderDataRow}/>*/}			
-			<Paging />
+			{/*<Paging />*/}
 			</div>
 		);
 	}	

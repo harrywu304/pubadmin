@@ -11,18 +11,31 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SideBar = function (_React$Component) {
   _inherits(SideBar, _React$Component);
 
-  function SideBar() {
+  function SideBar(props) {
     _classCallCheck(this, SideBar);
 
-    return _possibleConstructorReturn(this, (SideBar.__proto__ || Object.getPrototypeOf(SideBar)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (SideBar.__proto__ || Object.getPrototypeOf(SideBar)).call(this, props));
+
+    _this.handlerClick = _this.handlerClick.bind(_this);
+    _this.state = {
+      currentpage: ""
+    };
+    return _this;
   }
 
   _createClass(SideBar, [{
+    key: "handlerClick",
+    value: function handlerClick(e) {
+      this.setState({ currentpage: e.target.id });
+      this.props.handlerClick(e);
+    }
+  }, {
     key: "render",
     value: function render() {
       var menus = this.props.menus;
       var menuref = this.props.menuref;
-      var clickHandler = this.props.clickHandler;
+      var handlerClick = this.handlerClick;
+      var currentpage = this.state.currentpage;
 
       return React.createElement(
         "ul",
@@ -31,10 +44,10 @@ var SideBar = function (_React$Component) {
           var menuid = menuref[menu];
           return React.createElement(
             "li",
-            { key: index },
+            { key: menuid, className: currentpage == menuid ? "active" : "" },
             React.createElement(
               "a",
-              { href: "#", id: menuid, onClick: clickHandler },
+              { href: "#", id: menuid, onClick: handlerClick },
               menu
             )
           );

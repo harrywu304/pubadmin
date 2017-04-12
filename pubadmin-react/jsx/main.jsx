@@ -4,7 +4,7 @@ class Main extends React.Component {
       this.handlerMenuClick = this.handlerMenuClick.bind(this);
       this.state = {		
 		menus : ["Overview", "Reports","Analytics", "Exports"],
-		menuref : {"Overview":"overview","Reports":"reports","Analytics":"analytics","Export":"exports"},
+		menuref : {"Overview":"overview","Reports":"reports","Analytics":"analytics","Exports":"exports"},
 		currentpage: "overview"
       };
     }	
@@ -21,7 +21,7 @@ class Main extends React.Component {
 		return (
 			<div >
 		        <div id="sidebar" className="col-sm-3 col-md-2 sidebar" >
-		        	<SideBar menus={this.state.menus} menuref={this.state.menuref} clickHandler={this.handlerMenuClick}/>
+		        	<SideBar menus={this.state.menus} menuref={this.state.menuref} handlerClick={this.handlerMenuClick}/>
 		        </div>			
 		        <div id="mainbar" className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 					{("overview" == this.state.currentpage)?<Overview /> : ""}	
@@ -31,7 +31,6 @@ class Main extends React.Component {
 		);
 	}	
 }
-
 
 ReactDOM.render(
   <Main />,
