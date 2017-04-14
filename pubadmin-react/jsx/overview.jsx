@@ -46,5 +46,10 @@ class Overview extends React.Component {
 			{/*<DataList datatitle={this.state.datatitle} heads={this.state.heads} rows={this.state.rows} renderDataRow={this.renderDataRow}/>*/}			
 			</div>
 		);
-	}	
+	}
 }
+
+ReactDOM.render(
+  <Overview  />,
+  document.getElementById('mainbar')
+);

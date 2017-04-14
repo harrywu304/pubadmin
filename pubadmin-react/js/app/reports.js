@@ -22,7 +22,9 @@ var Reports = function (_React$Component) {
 			datatitle: 'Report List',
 			heads: ["#", "Name", "Age", "Sex", "City"],
 			headkeyref: { "#": "id", "Name": "header1", "Sex": "header2", "Age": "header3", "City": "header4" },
-			rows: []
+			rows: [],
+			totalPage: 1,
+			currentPage: 1
 		};
 		return _this;
 	}
@@ -95,7 +97,7 @@ var Reports = function (_React$Component) {
 								),
 								React.createElement(
 									'button',
-									{ type: 'button', className: 'btn btn-default', id: 'select', onClick: this.handleQuery },
+									{ type: 'button', className: 'btn btn-default', id: 'querySubmit', onClick: this.handleQuery },
 									'Query'
 								)
 							)
@@ -107,16 +109,29 @@ var Reports = function (_React$Component) {
 	}, {
 		key: 'handleQuery',
 		value: function handleQuery(e) {
-			var appName = this.refs.appName;
-			console.log("e.target.value:" + e.target.value);
 			console.log("e.target.id:" + e.target.id);
+			var pageNum = 1;
+			if ("querySubmit" == e.target.id) {
+				pageNum = 1;
+			} else {
+				//由于react的版本兼容问题，新版本不能直接通过e.target.value获取a标签的value属性，需要通过e.target.getAttribute获取
+				pageNum = parseInt(getEventValue(e));
+				console.log("query pageNum:" + pageNum);
+				this.setState({ c_pnum: pageNum });
+			}
 
+			var appName = this.refs.appName;
 			var $this = this;
-			$.get("/pubadmin-react/testdata/users.json", function (data, status) {
-				console.log("data:" + data);
-				console.log("status:" + status);
-				if ("success" === status) {
-					$this.setState({ rows: data });
+			var vPageNum = pageNum == 1 ? "" : pageNum;
+			$.ajax({
+				url: "/pubadmin-react/testdata/users" + vPageNum + ".json",
+				type: "GET",
+				data: { appName: appName.value, pageNum: pageNum },
+				success: function success(data, status, xhr) {
+					console.log("data:" + data);
+					console.log("status:" + status);
+					console.log(xhr.getResponseHeader("Content-Type"));
+					$this.setState({ rows: data.rows, totalPage: data.totalPage, currentPage: pageNum });
 				}
 			});
 		}
@@ -132,10 +147,13 @@ var Reports = function (_React$Component) {
 					this.state.title
 				),
 				this.renderQueryForm(),
-				React.createElement(DataList, { datatitle: this.state.datatitle, heads: this.state.heads, rows: this.state.rows, headkeyref: this.state.headkeyref })
+				React.createElement(DataList, { datatitle: this.state.datatitle, heads: this.state.heads, rows: this.state.rows, headkeyref: this.state.headkeyref }),
+				React.createElement(FullPaging, { totalPage: this.state.totalPage, currentPage: this.state.currentPage, handleClick: this.handleQuery })
 			);
 		}
 	}]);
 
 	return Reports;
 }(React.Component);
+
+ReactDOM.render(React.createElement(Reports, null), document.getElementById('mainbar'));

@@ -113,3 +113,5 @@ var Overview = function (_React$Component) {
 
 	return Overview;
 }(React.Component);
+
+ReactDOM.render(React.createElement(Overview, null), document.getElementById('mainbar'));

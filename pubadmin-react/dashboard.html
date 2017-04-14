@@ -60,6 +60,12 @@
 
     <div class="container-fluid">
       <div id="main" class="row">
+        <div id="sidebar" class="col-sm-3 col-md-2 sidebar">
+
+        </div>
+        <div id="mainbar" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+        </div>
       </div>
       <footer class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
       	<p>©2017 Pubadmin.org</p>
@@ -77,17 +83,27 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/bootstrap/ie10-viewport-bug-workaround.js"></script>
     
-    <!-- React JavaScript
-    ================================================== -->    
-    <script src="js/react/react.js"></script>
-    <script src="js/react/react-dom.js"></script>
-    <script src="js/react/browser.5.8.38.js"></script>	
+      <!-- React JavaScript
+    ================================================== -->
+    <script src="js/jq-ext.js"></script>	
+    <script src="js/react-15.4.2/react.js"></script>
+    <script src="js/react-15.4.2/react-dom.js"></script>
+    <script src="js/react-15.4.2/browser.min.js"></script>	
     
+    <script src="js/app/common/pubutil.js"></script>
     <script src="js/app/common/datalist.js"></script>
-    <script src="js/app/common/sidebar.js"></script>
-    <script src="js/app/reports.js"></script>
-    <script src="js/app/overview.js"></script>    
-    <script type="text/babel" src="jsx/main.jsx"></script>    
- 
+    <script src="js/app/common/paging.js"></script>  
+    <script type="text/babel" src="jsx/sidebar.jsx"></script>
+    <script type="text/babel" src="jsx/reports.jsx"></script>
+    <script>
+    	var view = $.getUrlParam("view");
+    	//default view 'overview'
+    	if(view == undefined){ view = "overview";}
+    	console.log("view:"+view);
+    	
+    	$(document).ready(function(){
+		//$.getScript("js/app/"+view+".js", function(data, status, jqxhr) {});
+	});
+    </script>
   </body>
 </html>
