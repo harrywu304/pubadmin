@@ -2,21 +2,21 @@ class SideBar extends React.Component {
 	
     constructor(props) {
       super(props);
-      this.handlerClick = this.handlerClick.bind(this);
+      this.handleClick = this.handleClick.bind(this);
       this.state = {		
 		currentpage: ""
       };
     }	
     
-    handlerClick(e){
+    handleClick(e){
     		this.setState({currentpage:e.target.id});
-    		this.props.handlerClick(e);
+    		this.props.handleClick(e);
     }
     
 	render() {
 		var menus = this.props.menus;
 		var menuref = this.props.menuref;
-		var handlerClick = this.handlerClick;
+		var handleClick = this.handleClick;
 		var currentpage = this.state.currentpage;
 		
 		return (
@@ -24,7 +24,7 @@ class SideBar extends React.Component {
             {
             	menus.map(function(menu,index){ 
             		var menuid = menuref[menu];
-            		return <li key={menuid} className={(currentpage == menuid)?"active":""}><a href="#" id={menuid} onClick={handlerClick} >{menu}</a></li>;
+            		return <li key={menuid} className={(currentpage == menuid)?"active":""}><a href="#" id={menuid} onClick={handleClick} >{menu}</a></li>;
             	})
             }
           </ul>	

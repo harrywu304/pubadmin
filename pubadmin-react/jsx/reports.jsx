@@ -1,13 +1,15 @@
 class Reports extends React.Component {
     constructor(props) {
       super(props);
-      this.handleQuery = this.handleQuery.bind(this);      
+      this.handleQuery = this.handleQuery.bind(this);   
       this.state = {
       	title:'Reports',
       	datatitle: 'Report List',		
 		heads : ["#", "Name","Age", "Sex", "City"],
 		headkeyref : {"#":"id","Name":"header1","Sex":"header2","Age":"header3","City":"header4"},	
-		rows: []
+		rows: [],
+		totalPage: 1,
+		currentPage:1
       };
     }	
 	
@@ -33,7 +35,7 @@ class Reports extends React.Component {
 	                                <label className="control-label">App Name：</label>
 	                                <input type="text" ref="appName" className="form-control" id="appName"/>
 	                            </div>
-	                            <button type="button" className="btn btn-default" id="select" onClick={this.handleQuery}>Query</button>
+	                            <button type="button" className="btn btn-default" id="querySubmit" onClick={this.handleQuery}>Query</button>
 	                        </form>
 	                    </div>
 	                </div>
@@ -43,19 +45,32 @@ class Reports extends React.Component {
     }
     
     handleQuery(e) {
-    	var appName = this.refs.appName;
-    	console.log("e.target.value:"+e.target.value);
     	console.log("e.target.id:"+e.target.id);
+    	var pageNum = 1;
+    	if("querySubmit" == e.target.id){
+    		pageNum = 1;
+    	} else {
+	    	//由于react的版本兼容问题，新版本不能直接通过e.target.value获取a标签的value属性，需要通过e.target.getAttribute获取
+	    	pageNum = parseInt(getEventValue(e));
+	    	console.log("query pageNum:"+pageNum);
+	    	this.setState({c_pnum:pageNum});    		
+    	}
     	
-    	var $this = this;
-    	$.get("/pubadmin-react/testdata/users.json",function(data,status){
-    		console.log("data:"+data);
-    		console.log("status:"+status);
-    		if("success" === status){
-				$this.setState({rows:data});
-    		}
-    	});
-    }    
+    	var appName = this.refs.appName;
+     	var $this = this;
+     	var vPageNum = (pageNum == 1)?"":pageNum;
+        $.ajax({
+            url: "/pubadmin-react/testdata/users"+vPageNum+".json",
+            type: "GET",
+            data: {appName:appName.value, pageNum:pageNum},
+            success: function (data, status, xhr) {
+            	console.log("data:"+data);
+            	console.log("status:"+status);
+				console.log(xhr.getResponseHeader("Content-Type"));
+				$this.setState({rows:data.rows, totalPage:data.totalPage, currentPage:pageNum});
+            }
+        }); 
+    }   
     
 	render() {
 		return (
@@ -64,7 +79,7 @@ class Reports extends React.Component {
 			{this.renderQueryForm()}
 			<DataList datatitle={this.state.datatitle} heads={this.state.heads} rows={this.state.rows} headkeyref={this.state.headkeyref}/>
 			{/*<DataList datatitle={this.state.datatitle} heads={this.state.heads} rows={this.state.rows} renderDataRow={this.renderDataRow}/>*/}			
-			{/*<Paging />*/}
+			<FullPaging totalPage={this.state.totalPage} currentPage={this.state.currentPage} handleClick={this.handleQuery}/>
 			</div>
 		);
 	}	

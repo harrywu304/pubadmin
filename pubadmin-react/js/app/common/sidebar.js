@@ -16,7 +16,7 @@ var SideBar = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (SideBar.__proto__ || Object.getPrototypeOf(SideBar)).call(this, props));
 
-    _this.handlerClick = _this.handlerClick.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
     _this.state = {
       currentpage: ""
     };
@@ -24,17 +24,17 @@ var SideBar = function (_React$Component) {
   }
 
   _createClass(SideBar, [{
-    key: "handlerClick",
-    value: function handlerClick(e) {
+    key: "handleClick",
+    value: function handleClick(e) {
       this.setState({ currentpage: e.target.id });
-      this.props.handlerClick(e);
+      this.props.handleClick(e);
     }
   }, {
     key: "render",
     value: function render() {
       var menus = this.props.menus;
       var menuref = this.props.menuref;
-      var handlerClick = this.handlerClick;
+      var handleClick = this.handleClick;
       var currentpage = this.state.currentpage;
 
       return React.createElement(
@@ -47,7 +47,7 @@ var SideBar = function (_React$Component) {
             { key: menuid, className: currentpage == menuid ? "active" : "" },
             React.createElement(
               "a",
-              { href: "#", id: menuid, onClick: handlerClick },
+              { href: "#", id: menuid, onClick: handleClick },
               menu
             )
           );
