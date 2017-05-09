@@ -35,13 +35,38 @@ class Reports extends React.Component {
 	                                <label className="control-label">App Name：</label>
 	                                <input type="text" ref="appName" className="form-control" id="appName"/>
 	                            </div>
-	                            <button type="button" className="btn btn-default" id="querySubmit" onClick={this.handleQuery}>Query</button>
+	                            <button type="button" className="btn btn-default" id="querySubmit" onClick={this.handleQuery}>Query</button>&nbsp;&nbsp;
+								<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
+								  Add App...
+								</button>	                            
 	                        </form>
 	                    </div>
 	                </div>
 	            </div>	
 	        </div>    
 		);    	
+    }
+    
+    renderAddAppModal(){
+		return (
+			<div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div className="modal-dialog" role="document">
+			    <div className="modal-content">
+			      <div className="modal-header">
+			        <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 className="modal-title" id="myModalLabel">Modal title</h4>
+			      </div>
+			      <div className="modal-body">
+			        ...
+			      </div>
+			      <div className="modal-footer">
+			        <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" className="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>			
+		);	
     }
     
     handleQuery(e) {
@@ -77,6 +102,7 @@ class Reports extends React.Component {
 			<div>
 			<h1 className="page-header">{this.state.title}</h1>
 			{this.renderQueryForm()}
+			{this.renderAddAppModal()}
 			<DataList datatitle={this.state.datatitle} heads={this.state.heads} rows={this.state.rows} headkeyref={this.state.headkeyref}/>
 			{/*<DataList datatitle={this.state.datatitle} heads={this.state.heads} rows={this.state.rows} renderDataRow={this.renderDataRow}/>*/}			
 			<FullPaging totalPage={this.state.totalPage} currentPage={this.state.currentPage} handleClick={this.handleQuery}/>
