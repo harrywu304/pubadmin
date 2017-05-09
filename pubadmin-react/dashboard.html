@@ -90,8 +90,6 @@
     <script src="js/app/common/pubutil.js"></script>
     <script src="js/app/common/datalist.js"></script>
     <script src="js/app/common/paging.js"></script>  
-    <script type="text/babel" src="jsx/sidebar.jsx"></script>
-    <script type="text/babel" src="jsx/reports.jsx"></script>
     <script>
     	var view = $.getUrlParam("view");
     	//default view 'overview'
@@ -99,8 +97,10 @@
     	console.log("view:"+view);
     	
     	$(document).ready(function(){
-				//$.getScript("js/app/"+view+".js", function(data, status, jqxhr) {});
-	});
+					//$.getScript("js/app/"+view+".js", function(data, status, jqxhr) {});
+			});
     </script>
+    <script type="text/babel" src="jsx/sidebar.jsx"></script>
+    <script type="text/babel" src="jsx/reports.jsx"></script>    
   </body>
 </html>

@@ -4,12 +4,12 @@ class SideBar extends React.Component {
       super(props);
       this.handleClick = this.handleClick.bind(this);
       this.state = {		
-		currentpage: ""
+		//currentpage: ''
       };
     }	
     
     handleClick(e){
-    		this.setState({currentpage:e.target.id});
+    		//this.setState({currentpage:e.target.id});
     		window.location = "?view="+e.target.id;
     }
     
@@ -17,7 +17,7 @@ class SideBar extends React.Component {
 		var menus = this.props.menus;
 		var menuref = this.props.menuref;
 		var handleClick = this.handleClick;
-		var currentpage = this.state.currentpage;
+		var currentpage = this.props.currentpage;
 		
 		return (
           <ul className="nav nav-sidebar">
@@ -36,6 +36,6 @@ var menus = ["Overview", "Reports","Analytics", "Exports"];
 var menuref = {"Overview":"overview","Reports":"reports","Analytics":"analytics","Exports":"exports"};
 
 ReactDOM.render(
-  <SideBar menus={menus} menuref={menuref} />,
+  <SideBar menus={menus} menuref={menuref} currentpage={view}/>,
   document.getElementById('sidebar')
 );
